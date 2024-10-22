@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-#  		main.py			Oct 18, 2024
+#  		__init__.py			Oct 21, 2024
 #  				Adrián E. Córdoba [software.dynamicmcs@gmail.com]
 #
 #  Copyright (C) 2024
@@ -16,25 +15,4 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import logging.config
-import yaml
-import utils.configuration as configuration
-from processors import processor
-
-
-def run():
-    logger.info('Dynamic Transactions Processing System is starting...')
-    logger.info('Application is running in {0}s mode.'.format(config['application']['environment']))
-    processor.process()
-
-
-if __name__ == '__main__':
-    config = configuration.get_config()
-    with open(config['application']['logging']['conf_file'], 'r') as logging_file:
-        log_config = yaml.safe_load(logging_file)
-
-    logging.config.dictConfig(log_config)
-    logger = logging.getLogger(config['application']['environment'])
-
-    run()
+#
