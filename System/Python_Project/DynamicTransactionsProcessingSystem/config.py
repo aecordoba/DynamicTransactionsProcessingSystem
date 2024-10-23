@@ -1,4 +1,4 @@
-#  		__init__.py			Oct 22, 2024
+#  		config.py			Oct 23, 2024
 #  				Adrián E. Córdoba [software.dynamicmcs@gmail.com]
 #
 #  Copyright (C) 2024
@@ -15,3 +15,8 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+environment = 'development'     # development | staging | production
+logging = {
+    'config_file': 'logging.yaml',
+}

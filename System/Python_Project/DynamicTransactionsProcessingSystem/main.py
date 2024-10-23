@@ -19,22 +19,21 @@
 
 import logging.config
 import yaml
-import utils.configuration as configuration
+import config
 from processors import processor
 
 
 def run():
-    logger.info('Dynamic Transactions Processing System is starting...')
-    logger.info('Application is running in {0}s mode.'.format(config['application']['environment']))
+    logger.info('Application is running in {0}s mode.'.format(config.environment))
     processor.process()
 
 
 if __name__ == '__main__':
-    config = configuration.get_config()
-    with open(config['application']['logging']['conf_file'], 'r') as logging_file:
-        log_config = yaml.safe_load(logging_file)
+    with open(config.logging['config_file'], 'r') as logging_file:
+        logging_config = yaml.safe_load(logging_file)
 
-    logging.config.dictConfig(log_config)
-    logger = logging.getLogger(config['application']['environment'])
+    logging.config.dictConfig(logging_config)
+    logger = logging.getLogger(config.environment)
+    logger.info('Dynamic Transactions Processing System is starting...')
 
     run()

@@ -17,9 +17,9 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-import utils.configuration as configuration
+import config
 
-logger = logging.getLogger(configuration.get_config()['application']['environment'])
+logger = logging.getLogger(config.environment)
 
 
 def process():

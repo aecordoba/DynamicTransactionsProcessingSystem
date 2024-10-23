@@ -1,5 +1,0 @@
-application:
-  environment: development
-  logging:
-    conf_file: config/logging.yaml
-
