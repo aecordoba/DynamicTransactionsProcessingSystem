@@ -24,7 +24,7 @@ from processors import processor
 
 
 def run():
-    logger.info('Application is running in {0}s mode.'.format(config.environment))
+    logger.info('Application is running in {0} mode.'.format(config.environment))
     processor.process()
 
 
