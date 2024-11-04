@@ -20,3 +20,12 @@ environment = 'development'     # development | staging | production
 logging = {
     'config_file': 'logging.yaml',
 }
+db_conn_pool = {
+    'host': 'localhost',
+    'port': 5432,
+    'database': 'dtps',
+    'user': 'dtpsapp',
+    'password': 'dtpsapp123',
+    'minconn': 2,
+    'maxconn': 32
+}
