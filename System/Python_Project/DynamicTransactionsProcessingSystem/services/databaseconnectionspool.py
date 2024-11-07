@@ -20,6 +20,15 @@ from psycopg2.pool import SimpleConnectionPool
 import config
 
 
-def get_conn_pool():
-    conn_pool = SimpleConnectionPool(**config.db_conn_pool)
-    return conn_pool
+class DatabaseManager:
+    conn_pool = None
+
+    @classmethod
+    def create_pool(cls):
+        cls.conn_pool = SimpleConnectionPool(**config.db_conn_pool)
+
+    @classmethod
+    def get_conn(cls):
+        if cls.conn_pool is None:
+            cls.create_pool()
+        return cls.conn_pool.getconn()
