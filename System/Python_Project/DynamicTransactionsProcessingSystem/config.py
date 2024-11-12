@@ -20,6 +20,11 @@ environment = 'development'     # development | staging | production
 logging = {
     'config_file': 'logging.yaml',
 }
+queues_size = {
+    'created': 10,
+    'initialized': 10,
+    'executed': 10,
+}
 db_conn_pool = {
     'host': 'localhost',
     'port': 5432,

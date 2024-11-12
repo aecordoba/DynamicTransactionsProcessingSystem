@@ -19,6 +19,7 @@
 import logging
 import config
 from processors import initializer
+from services.queuesmanager import QueueManager
 
 logger = logging.getLogger(config.environment)
 
@@ -26,4 +27,6 @@ logger = logging.getLogger(config.environment)
 def process():
     logger.info('Initializing application...')
     initializer.config_status()
+
+    queues_manager = QueueManager()
 
