@@ -35,8 +35,9 @@ class Task(ABC):
 
 
 class Job:
-    def __init__(self, identifier, task, data, status):
+    def __init__(self, identifier, name, task, data, status):
         self.identifier = identifier
+        self.name = name
         self.task = task
         self.data = data
         self.status = status
