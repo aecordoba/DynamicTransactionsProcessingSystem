@@ -16,19 +16,55 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from psycopg2.pool import SimpleConnectionPool
 import config
+from mysql.connector.pooling import MySQLConnectionPool
 
 
 class DatabaseManager:
-    conn_pool = None
+    _conn_pool = None
 
     @classmethod
-    def create_pool(cls):
-        cls.conn_pool = SimpleConnectionPool(**config.db_conn_pool)
+    def _create_pool(cls):
+        cls._conn_pool = MySQLConnectionPool(**config.db_conn_pool)
 
     @classmethod
-    def get_conn(cls):
-        if cls.conn_pool is None:
-            cls.create_pool()
-        return cls.conn_pool.getconn()
+    def _get_conn(cls):
+        if cls._conn_pool is None:
+            cls._create_pool()
+        return cls._conn_pool.get_connection()
+
+    @classmethod
+    def _close(cls, conn, cursor):
+        cursor.close()
+        conn.close()
+
+    @classmethod
+    def execute(cls, query, args=None, commit=False):
+        conn = cls._get_conn()
+        cursor = conn.cursor()
+        if args:
+            cursor.execute(query, args)
+        else:
+            cursor.execute(query)
+        if commit is True:
+            conn.commit()
+            cls._close(conn, cursor)
+            return None
+        else:
+            result = cursor.fetchall()
+            cls._close(conn, cursor)
+            return result
+
+    @classmethod
+    def execute_many(cls, sql, args, commit=False):
+        conn = cls._get_conn()
+        cursor = conn.cursor()
+        cursor.executemany(sql, args)
+        if commit is True:
+            conn.commit()
+            cls._close(conn, cursor)
+            return None
+        else:
+            result = cursor.fetchall()
+            cls._close(conn, cursor)
+            return result

@@ -27,10 +27,9 @@ queues_size = {
 }
 db_conn_pool = {
     'host': 'localhost',
-    'port': 5432,
-    'database': 'dtps',
+    'port': 3306,
+    'database': 'DTPS',
     'user': 'dtpsapp',
     'password': 'dtpsapp123',
-    'minconn': 2,
-    'maxconn': 32
+    'pool_size': 32
 }

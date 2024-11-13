@@ -23,10 +23,8 @@ logger = logging.getLogger(config.environment)
 
 
 def config_status():
-    cursor = DatabaseManager.get_conn().cursor()
-    cursor.execute('SELECT * FROM Job_Status;')
-    record = cursor.fetchall()
+    result = DatabaseManager.execute('CALL get_job_status_list();')
 
-    logger.debug('Loaded {0} job status.'.format(len(record)))
-    config.job_status = {n: i for (i, n) in record}
+    logger.debug('Loaded {0} job status.'.format(len(result)))
+    config.job_status = {n: i for (i, n) in result}
     print(config.job_status)
