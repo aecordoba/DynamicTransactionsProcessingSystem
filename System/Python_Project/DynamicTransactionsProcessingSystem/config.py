@@ -31,5 +31,6 @@ db_conn_pool = {
     'database': 'DTPS',
     'user': 'dtpsapp',
     'password': 'dtpsapp123',
-    'pool_size': 32
+    'pool_size': 32,
+    'max_overflow': 0
 }

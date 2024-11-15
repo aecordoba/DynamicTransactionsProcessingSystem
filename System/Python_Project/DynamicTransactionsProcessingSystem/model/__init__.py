@@ -1,4 +1,4 @@
-#  		initializer.py			Nov 5, 2024
+#  		__init__.py			Nov 15, 2024
 #  				Adrián E. Córdoba [software.dynamicmcs@gmail.com]
 #
 #  Copyright (C) 2024
@@ -15,16 +15,3 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import logging
-import config
-from model.jobstatus import JobStatusService
-
-
-logger = logging.getLogger(config.environment)
-
-
-def config_status():
-    job_status_list = JobStatusService().get_job_status_list()
-    config.job_status = {n: i for (i, n) in job_status_list}
-    logger.debug('Loaded {0} job status.'.format(len(config.job_status)))
-    print(config.job_status)

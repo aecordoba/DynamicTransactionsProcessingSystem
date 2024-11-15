@@ -1,4 +1,4 @@
-#  		initializer.py			Nov 5, 2024
+#  		databasemanager.py			Nov 15, 2024
 #  				Adrián E. Córdoba [software.dynamicmcs@gmail.com]
 #
 #  Copyright (C) 2024
@@ -15,16 +15,24 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import logging
-import config
-from model.jobstatus import JobStatusService
+
+from sqlalchemy import create_engine, select
+from sqlalchemy.orm import Session
+from config import db_conn_pool
 
 
-logger = logging.getLogger(config.environment)
+class DatabaseManager:
+    _engine = None
 
+    @classmethod
+    def _create_engine(cls):
+        cls._engine = create_engine(f'mysql://{db_conn_pool['user']}:{db_conn_pool['password']}@{
+            db_conn_pool['host']}:{db_conn_pool['port']}/{db_conn_pool['database']}',
+            pool_size=db_conn_pool['pool_size'], max_overflow=db_conn_pool['max_overflow'],
+            echo_pool=False)
 
-def config_status():
-    job_status_list = JobStatusService().get_job_status_list()
-    config.job_status = {n: i for (i, n) in job_status_list}
-    logger.debug('Loaded {0} job status.'.format(len(config.job_status)))
-    print(config.job_status)
+    @classmethod
+    def get_session(cls):
+        if cls._engine is None:
+            cls._create_engine()
+        return Session(cls._engine)
