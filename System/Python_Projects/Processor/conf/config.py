@@ -1,4 +1,4 @@
-#  		main.py			Oct 30, 2025
+#  		conf.py			Nov 1, 2025
 #  				Adrián E. Córdoba [software.dynamicmcs@gmail.com]
 #
 #  Copyright (C) 2025
@@ -16,15 +16,11 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# This is a sample Python script.
+app = {
+    'version': '0.0.1',
+    'environment': 'development'  # development | staging | production
+}
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-from conf import config
-import logging
-
-
-if __name__ == '__main__':
-    logger = logging.getLogger(config.app['environment'])
-    logger.info(f'Dynamic Transactions Processing System version {config.app['version']} is starting.')
+logging = {
+    'config_file': 'conf/logging.yaml'
+}
